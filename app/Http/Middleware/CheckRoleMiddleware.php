@@ -14,14 +14,19 @@ class CheckRoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
         /**
          * validate user before sending to the main file
          */
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->id);
 
-        if($user->role === 'admin'){
+        // if($user->role === 'admin'){
+        //     return $next($request);
+        // }
+
+        //making  this dynamic
+        if($user->role === $role){
             return $next($request);
         }
 
