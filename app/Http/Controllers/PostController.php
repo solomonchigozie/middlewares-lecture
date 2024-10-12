@@ -2,15 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckRoleMiddleware;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PostController extends Controller
+class PostController extends Controller implements HasMiddleware
 {
-    function inedx() {
+    public static function middleware()
+    {
+
+        /**
+         * only will ignore the specified methods
+         */
+        return [new Middleware(CheckRoleMiddleware::class, only:['store'])];
+
+        /**
+         * except will implement in all the methods except the specified method
+         */
+        return [new Middleware(CheckRoleMiddleware::class, except:['index'])];
+    }
+
+    function index() {
         return view('post.index');
     }
 
-    function handlePost(Request $request){
+    function store(Request $request){
         dd($request->all());
     }
 }

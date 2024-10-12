@@ -6,11 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">  
+    <form action="{{ route('post.store') }}" method="post">  
+        @csrf
         <div>
-            <input type="hidden" name="user_id" value="1">
-            <input type="text" name="title">
-            <textarea name="description"></textarea>
+            <input type="hidden" name="user_id" value="2"> <br>
+            <input type="text" name="title" placeholder="Title"><br>
+            <textarea name="description" placeholder="Description"></textarea><br>
             <button type="submit">Submit</button>
         </div>
     </form>
